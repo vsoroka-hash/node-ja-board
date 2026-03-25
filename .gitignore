@@ -1,0 +1,9 @@
+node_modules/
+generated/
+dev.db
+prisma/dev.db
+prisma/dev.db-journal
+.env
+.DS_Store
+*.log
+TODO.md

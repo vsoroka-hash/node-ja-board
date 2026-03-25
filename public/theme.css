@@ -1,0 +1,68 @@
+:root {
+  --bg-page-start: 243 246 250;
+  --bg-page-end: 232 237 244;
+  --bg-accent-soft: 211 223 240;
+
+  --surface-elevated: 255 255 255;
+  --surface-subtle: 246 249 252;
+  --surface-hover: 239 244 250;
+
+  --text-primary: 21 29 40;
+  --text-muted: 72 85 104;
+  --text-soft: 110 124 144;
+
+  --accent-strong: 22 89 148;
+  --accent-strong-hover: 18 72 120;
+  --accent-soft: 214 232 249;
+  --accent-on: 255 255 255;
+
+  --border-subtle: 216 226 237;
+  --border-strong: 168 184 205;
+  --focus-ring: 88 141 191;
+
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+  --space-2xl: 3rem;
+
+  --radius-sm: 0.65rem;
+  --radius-md: 0.9rem;
+  --radius-lg: 1.2rem;
+
+  --shadow-sm: 0 2px 8px rgb(15 23 42 / 0.08);
+  --shadow-md: 0 10px 26px rgb(15 23 42 / 0.1);
+  --shadow-lg: 0 22px 48px rgb(15 23 42 / 0.12);
+
+  --transition-fast: all 0.15s ease;
+  --transition-normal: all 0.2s ease;
+  --transition-slow: all 0.3s ease;
+}
+
+[data-theme='dark'] {
+  --bg-page-start: 16 23 33;
+  --bg-page-end: 11 18 27;
+  --bg-accent-soft: 26 43 66;
+
+  --surface-elevated: 22 31 44;
+  --surface-subtle: 26 37 52;
+  --surface-hover: 34 49 70;
+
+  --text-primary: 234 242 251;
+  --text-muted: 172 188 208;
+  --text-soft: 144 162 185;
+
+  --accent-strong: 43 110 176;
+  --accent-strong-hover: 56 124 191;
+  --accent-soft: 35 60 90;
+  --accent-on: 255 255 255;
+
+  --border-subtle: 51 68 92;
+  --border-strong: 83 105 136;
+  --focus-ring: 112 179 240;
+
+  --shadow-sm: 0 2px 8px rgb(0 0 0 / 0.32);
+  --shadow-md: 0 14px 30px rgb(0 0 0 / 0.4);
+  --shadow-lg: 0 26px 54px rgb(0 0 0 / 0.45);
+}

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= announcement.title %> - Оголошення</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/theme.css">
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="/icons.css">
+  <script defer src="/app.js"></script>
+</head>
+<body>
+  <div class="page-shell">
+    <div class="container">
+      <header class="header-modern">
+        <div class="logo">
+          <h1>Деталі оголошення</h1>
+        </div>
+        <div class="header-actions">
+          <a href="/" class="btn btn-secondary">На головну</a>
+        </div>
+      </header>
+
+      <main id="main-content" tabindex="-1">
+        <article class="announcement-detail">
+          <div class="category-badge" data-category="<%= announcement.category %>">
+            <%= announcement.category === 'sale' ? '📦 Продаж' : announcement.category === 'service' ? '🔧 Послуги' : announcement.category === 'job' ? '💼 Робота' : '📌 Інше' %>
+          </div>
+          
+          <h1><%= announcement.title %></h1>
+          
+          <div class="meta">
+            <span class="price">Ціна: <%= announcement.price.toLocaleString('uk-UA') %> грн</span>
+            <span class="date">Опубліковано: <%= new Intl.DateTimeFormat('uk-UA', { day: 'numeric', month: 'long', year: 'numeric' }).format(new Date(announcement.createdAt)) %></span>
+          </div>
+
+          <div class="description">
+            <%= announcement.description.replace(/\n/g, '<br>') %>
+          </div>
+
+          <div class="contacts">
+            <h3>Контакти:</h3>
+            <p><%= announcement.contactInfo %></p>
+          </div>
+
+          <button id="delete-btn" class="btn btn-danger" data-announcement-id="<%= announcement.id %>">Видалити</button>
+        </article>
+      </main>
+    </div>
+  </div>
+
+  <script>
+    const deleteBtn = document.querySelector('#delete-btn');
+    const announcementId = Number(deleteBtn?.dataset.announcementId);
+
+    deleteBtn?.addEventListener('click', async () => {
+      if (!confirm('Ви впевнені що хочете видалити це оголошення?')) {
+        return;
+      }
+
+      try {
+        const response = await fetch(`/announcements/${announcementId}`, {
+          method: 'DELETE'
+        });
+
+        if (response.ok) {
+          window.location.href = '/';
+        } else {
+          alert('Помилка при видаленні оголошення');
+        }
+      } catch (error) {
+        alert('Помилка при видаленні оголошення');
+      }
+    });
+  </script>
+</body>
+</html>

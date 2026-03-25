@@ -1,0 +1,26 @@
+{
+  "type": "module",
+  "name": "dz2_node",
+  "version": "1.0.0",
+  "description": "Дошка оголошень - веб-застосунок з Prisma",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "node app.js",
+    "prisma:generate": "prisma generate",
+    "prisma:migrate": "prisma migrate dev",
+    "prisma:studio": "prisma studio"
+  },
+  "keywords": ["express", "prisma", "ejs", "bulletin-board"],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.19.2",
+    "ejs": "^3.1.10",
+    "@prisma/client": "^5.15.0",
+    "prisma": "^5.15.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
