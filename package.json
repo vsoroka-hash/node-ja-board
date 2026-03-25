@@ -11,14 +11,22 @@
     "prisma:migrate": "prisma migrate dev",
     "prisma:studio": "prisma studio"
   },
-  "keywords": ["express", "prisma", "ejs", "bulletin-board"],
+  "keywords": [
+    "express",
+    "prisma",
+    "ejs",
+    "bulletin-board"
+  ],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.19.2",
-    "ejs": "^3.1.10",
     "@prisma/client": "^5.15.0",
-    "prisma": "^5.15.0"
+    "celebrate": "^15.0.3",
+    "ejs": "^3.1.10",
+    "express": "^5.2.1",
+    "prisma": "^5.15.0",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1"
   },
   "engines": {
     "node": ">=18.0.0"

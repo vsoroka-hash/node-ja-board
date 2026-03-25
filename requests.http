@@ -1,0 +1,63 @@
+@baseUrl = http://localhost:3000
+
+### 1) GET /announcements (без параметрів)
+GET {{baseUrl}}/announcements
+
+### 2) GET /announcements (з search)
+GET {{baseUrl}}/announcements?search=ноут
+
+### 3) GET /announcements (з sort + page)
+GET {{baseUrl}}/announcements?sort=oldest&page=2
+
+### 4) GET /announcements/:id (існуючий id)
+GET {{baseUrl}}/announcements/1
+
+### 5) GET /announcements/:id (неіснуючий id)
+GET {{baseUrl}}/announcements/999999
+
+### 6) POST /announcements (валідні дані)
+POST {{baseUrl}}/announcements
+Content-Type: application/json
+
+{
+  "title": "Продам ноутбук Lenovo ThinkPad",
+  "description": "Стан гарний, батарея тримає довго, встановлено SSD.",
+  "price": 16500,
+  "category": "sale",
+  "contactInfo": "0991234567"
+}
+
+### 7) POST /announcements (невалідні дані)
+POST {{baseUrl}}/announcements
+Content-Type: application/json
+
+{
+  "title": "abc",
+  "description": "short",
+  "price": -10,
+  "category": "invalid",
+  "contactInfo": "x"
+}
+
+### 8) PATCH /announcements/:id (часткове оновлення)
+PATCH {{baseUrl}}/announcements/1
+Content-Type: application/json
+
+{
+  "price": 17000,
+  "contactInfo": "test@example.com"
+}
+
+### 9) PATCH /announcements/:id (неіснуючий id)
+PATCH {{baseUrl}}/announcements/999999
+Content-Type: application/json
+
+{
+  "title": "Оновлена назва"
+}
+
+### 10) DELETE /announcements/:id
+DELETE {{baseUrl}}/announcements/1
+
+### 11) DELETE /announcements/:id (неіснуючий id)
+DELETE {{baseUrl}}/announcements/999999
