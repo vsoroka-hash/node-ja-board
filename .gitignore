@@ -7,3 +7,5 @@ prisma/dev.db-journal
 .DS_Store
 *.log
 TODO.md
+uploads/*
+!uploads/.gitkeep

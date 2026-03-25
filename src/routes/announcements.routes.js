@@ -12,6 +12,8 @@ import {
   listAnnouncementsValidator,
   patchAnnouncementValidator
 } from '../validators/announcements.validators.js';
+import authMiddleware from '../middleware/auth.middleware.js';
+import { uploadSingleImage } from '../middleware/upload.middleware.js';
 
 const router = Router();
 
@@ -82,10 +84,12 @@ router.get('/:id', announcementIdValidator, getAnnouncementById);
  *   post:
  *     tags: [Announcements]
  *     summary: Create a new announcement
+ *     security:
+ *       - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
- *         application/json:
+ *         multipart/form-data:
  *           schema:
  *             type: object
  *             required: [title, description, price, category, contactInfo]
@@ -106,13 +110,18 @@ router.get('/:id', announcementIdValidator, getAnnouncementById);
  *               contactInfo:
  *                 type: string
  *                 minLength: 5
+ *               image:
+ *                 type: string
+ *                 format: binary
  *     responses:
  *       201:
  *         description: Created announcement
  *       400:
  *         description: Validation error
+ *       401:
+ *         description: Unauthorized
  */
-router.post('/', createAnnouncementValidator, createAnnouncement);
+router.post('/', authMiddleware, uploadSingleImage, createAnnouncementValidator, createAnnouncement);
 
 /**
  * @swagger
@@ -120,6 +129,8 @@ router.post('/', createAnnouncementValidator, createAnnouncement);
  *   patch:
  *     tags: [Announcements]
  *     summary: Partially update an announcement
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -129,7 +140,7 @@ router.post('/', createAnnouncementValidator, createAnnouncement);
  *     requestBody:
  *       required: true
  *       content:
- *         application/json:
+ *         multipart/form-data:
  *           schema:
  *             type: object
  *             minProperties: 1
@@ -150,15 +161,20 @@ router.post('/', createAnnouncementValidator, createAnnouncement);
  *               contactInfo:
  *                 type: string
  *                 minLength: 5
+ *               image:
+ *                 type: string
+ *                 format: binary
  *     responses:
  *       200:
  *         description: Updated announcement
  *       400:
  *         description: Validation error
+ *       401:
+ *         description: Unauthorized
  *       404:
  *         description: Announcement not found
  */
-router.patch('/:id', patchAnnouncementValidator, patchAnnouncement);
+router.patch('/:id', authMiddleware, uploadSingleImage, patchAnnouncementValidator, patchAnnouncement);
 
 /**
  * @swagger
@@ -166,6 +182,8 @@ router.patch('/:id', patchAnnouncementValidator, patchAnnouncement);
  *   delete:
  *     tags: [Announcements]
  *     summary: Delete an announcement
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -177,9 +195,11 @@ router.patch('/:id', patchAnnouncementValidator, patchAnnouncement);
  *         description: Deleted successfully (no content)
  *       400:
  *         description: Validation error
+ *       401:
+ *         description: Unauthorized
  *       404:
  *         description: Announcement not found
  */
-router.delete('/:id', announcementIdValidator, deleteAnnouncement);
+router.delete('/:id', authMiddleware, announcementIdValidator, deleteAnnouncement);
 
 export default router;

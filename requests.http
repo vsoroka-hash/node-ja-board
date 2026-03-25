@@ -1,63 +1,189 @@
 @baseUrl = http://localhost:3000
+@email = hw5_user@example.com
+@password = secret123
+@token = {{login.response.body.token}}
 
-### 1) GET /announcements (без параметрів)
+### Register
+# @name register
+POST {{baseUrl}}/auth/register
+Content-Type: application/json
+
+{
+  "email": "{{email}}",
+  "password": "{{password}}"
+}
+
+### Login
+# @name login
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "{{email}}",
+  "password": "{{password}}"
+}
+
+### GET /announcements
 GET {{baseUrl}}/announcements
 
-### 2) GET /announcements (з search)
-GET {{baseUrl}}/announcements?search=ноут
+### POST /announcements with photo (multipart/form-data)
+# @name createWithImage
+POST {{baseUrl}}/announcements
+Authorization: Bearer {{token}}
+Content-Type: multipart/form-data; boundary=WebAppBoundary
 
-### 3) GET /announcements (з sort + page)
-GET {{baseUrl}}/announcements?sort=oldest&page=2
+--WebAppBoundary
+Content-Disposition: form-data; name="title"
 
-### 4) GET /announcements/:id (існуючий id)
-GET {{baseUrl}}/announcements/1
+Продам велосипед Trek
+--WebAppBoundary
+Content-Disposition: form-data; name="description"
 
-### 5) GET /announcements/:id (неіснуючий id)
+Відмінний стан, алюмінієва рама, пройшов ТО.
+--WebAppBoundary
+Content-Disposition: form-data; name="price"
+
+8500
+--WebAppBoundary
+Content-Disposition: form-data; name="category"
+
+sale
+--WebAppBoundary
+Content-Disposition: form-data; name="contactInfo"
+
+veloman@gmail.com
+--WebAppBoundary
+Content-Disposition: form-data; name="image"; filename="bike.jpg"
+Content-Type: image/jpeg
+
+< ./uploads/bike.jpg
+--WebAppBoundary--
+
+### PATCH /announcements/:id with photo
+PATCH {{baseUrl}}/announcements/{{createWithImage.response.body.id}}
+Authorization: Bearer {{token}}
+Content-Type: multipart/form-data; boundary=PatchBoundary
+
+--PatchBoundary
+Content-Disposition: form-data; name="price"
+
+8700
+--PatchBoundary
+Content-Disposition: form-data; name="image"; filename="bike-new.jpg"
+Content-Type: image/jpeg
+
+< ./uploads/bike-new.jpg
+--PatchBoundary--
+
+### GET /announcements/:id existing
+GET {{baseUrl}}/announcements/{{createWithImage.response.body.id}}
+
+### GET /announcements/:id missing
 GET {{baseUrl}}/announcements/999999
 
-### 6) POST /announcements (валідні дані)
-POST {{baseUrl}}/announcements
-Content-Type: application/json
+### DELETE /announcements/:id
+DELETE {{baseUrl}}/announcements/{{createWithImage.response.body.id}}
+Authorization: Bearer {{token}}
 
-{
-  "title": "Продам ноутбук Lenovo ThinkPad",
-  "description": "Стан гарний, батарея тримає довго, встановлено SSD.",
-  "price": 16500,
-  "category": "sale",
-  "contactInfo": "0991234567"
-}
-
-### 7) POST /announcements (невалідні дані)
-POST {{baseUrl}}/announcements
-Content-Type: application/json
-
-{
-  "title": "abc",
-  "description": "short",
-  "price": -10,
-  "category": "invalid",
-  "contactInfo": "x"
-}
-
-### 8) PATCH /announcements/:id (часткове оновлення)
-PATCH {{baseUrl}}/announcements/1
-Content-Type: application/json
-
-{
-  "price": 17000,
-  "contactInfo": "test@example.com"
-}
-
-### 9) PATCH /announcements/:id (неіснуючий id)
-PATCH {{baseUrl}}/announcements/999999
-Content-Type: application/json
-
-{
-  "title": "Оновлена назва"
-}
-
-### 10) DELETE /announcements/:id
-DELETE {{baseUrl}}/announcements/1
-
-### 11) DELETE /announcements/:id (неіснуючий id)
+### DELETE /announcements/:id missing
 DELETE {{baseUrl}}/announcements/999999
+Authorization: Bearer {{token}}
+
+### Rate limit check #1
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "{{email}}",
+  "password": "{{password}}"
+}
+
+### Rate limit check #2
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "{{email}}",
+  "password": "{{password}}"
+}
+
+### Rate limit check #3
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "{{email}}",
+  "password": "{{password}}"
+}
+
+### Rate limit check #4
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "{{email}}",
+  "password": "{{password}}"
+}
+
+### Rate limit check #5
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "{{email}}",
+  "password": "{{password}}"
+}
+
+### Rate limit check #6
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "{{email}}",
+  "password": "{{password}}"
+}
+
+### Rate limit check #7
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "{{email}}",
+  "password": "{{password}}"
+}
+
+### Rate limit check #8
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "{{email}}",
+  "password": "{{password}}"
+}
+
+### Rate limit check #9
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "{{email}}",
+  "password": "{{password}}"
+}
+
+### Rate limit check #10
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "{{email}}",
+  "password": "{{password}}"
+}
+
+### Rate limit check #11 (should return 429)
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "{{email}}",
+  "password": "{{password}}"
+}

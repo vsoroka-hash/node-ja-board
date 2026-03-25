@@ -22,7 +22,8 @@ export const createAnnouncementValidator = celebrate({
     description: Joi.string().trim().min(10).required(),
     price: Joi.number().positive().required(),
     category: categorySchema.required(),
-    contactInfo: Joi.string().trim().min(5).required()
+    contactInfo: Joi.string().trim().min(5).required(),
+    image: Joi.any().optional()
   })
 });
 
@@ -35,6 +36,7 @@ export const patchAnnouncementValidator = celebrate({
     description: Joi.string().trim().min(10),
     price: Joi.number().positive(),
     category: categorySchema,
-    contactInfo: Joi.string().trim().min(5)
+    contactInfo: Joi.string().trim().min(5),
+    image: Joi.any().optional()
   }).min(1)
 });
